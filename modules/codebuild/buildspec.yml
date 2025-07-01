@@ -1,0 +1,40 @@
+version: 0.2
+
+env:
+  secrets-manager:
+    STG_BACKLOG_GIT_GIT_USER: STG_BACKLOG_GIT:GIT_USER
+    STG_BACKLOG_GIT_GIT_PASS: STG_BACKLOG_GIT:GIT_PASS
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.x
+    commands:
+      - sudo yum -y install wget unzip aws-cli
+      - wget https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip
+      - unzip terraform_1.10.5_linux_amd64.zip
+      - sudo mv terraform /usr/local/bin/
+      - echo "Terraform installed"
+
+  pre_build:
+    commands:
+      - echo "Cloning from Backlog..."
+      - git clone https://${STG_BACKLOG_GIT_GIT_USER}:${STG_BACKLOG_GIT_GIT_PASS}@local.backlog.com/git/SERVICEINFRA_GIT/terraform-stg-${ENV}-${MODE}.git
+      - mv terraform-stg-${ENV}-${MODE} terraform-stg-env
+      - zip -r ${ENV}-${MODE}.zip terraform-stg-env
+      - aws s3 cp ${ENV}-${MODE}.zip s3://terraform-stg-resource/stg/${ENV}-${MODE}.zip
+      - echo "Terraform zip file created and uploaded to S3"
+
+  build:
+    commands:
+      - aws s3 cp s3://terraform-stg-resource/stg/${ENV}-${MODE}.zip /tmp/${ENV}-${MODE}.zip
+      - unzip /tmp/${ENV}-${MODE}.zip -d /tmp/extracted/
+      - cd /tmp/extracted/terraform-stg-env/env/${ENV}
+      - terraform init
+      - echo "Applying Terraform..."
+      - terraform ${MODE} -auto-approve
+      - echo "Terraform applied successfully"
+
+  post_build:
+    commands:
+      - terraform output
