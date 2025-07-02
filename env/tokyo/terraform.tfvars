@@ -148,7 +148,7 @@ year           = "2025"
 # #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 # sns_error = "sample@jp.sample.net"
-# sns_arts_emergency = "sample@jp.sample.net"
+# sns_emergency = "sample@jp.sample.net"
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #RDS
