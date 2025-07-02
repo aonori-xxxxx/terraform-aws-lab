@@ -7,7 +7,7 @@ name_prefix = "stg-aws1"
 #SSL
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 ssl_wild       = "sample.com"
-year           = "2024"
+year           = "2025"
 
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #S3 Bucket
