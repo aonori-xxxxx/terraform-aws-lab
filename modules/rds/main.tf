@@ -66,7 +66,7 @@ resource "aws_rds_cluster" "aurora_cluster" {
   storage_encrypted               = var.rds_config_cluster["storage_encrypted"]
   preferred_maintenance_window    = var.rds_config_cluster["preferred_maintenance_window"]
   master_username                 = var.rds_config_cluster["master_username"]
-  master_password = jsondecode(data.aws_secretsmanager_secret_version.db_secret_version.secret_string)["password"]
+  master_password                 = jsondecode(data.aws_secretsmanager_secret_version.db_secret_version.secret_string)["password"]
   backup_retention_period         = var.rds_config_cluster["backup_retention_period"]
   preferred_backup_window         = var.rds_config_cluster["preferred_backup_window"]
   allow_major_version_upgrade     = var.rds_config_cluster["allow_major_version_upgrade"]
