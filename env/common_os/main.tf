@@ -48,7 +48,7 @@ module "api_gateway_osaka_ap_apply" {
   source                  = "../../modules/api_gw"
   name_prefix             = var.name_prefix
   ENV                     = "osaka_ap"
-  MODE                    = "apply"
+  
   aws_lambda_function_arn = module.lambda_osaka_ap_apply.aws_lambda_function_arn
   log_group_arn           = module.api_gateway_osaka_ap_apply.log_group_arn
 }
@@ -60,7 +60,6 @@ module "api_gateway_osaka_ap_destroy" {
   source                  = "../../modules/api_gw"
   name_prefix             = var.name_prefix
   ENV                     = "osaka_ap"
-  MODE                    = "destroy"
   aws_lambda_function_arn = module.lambda_osaka_ap_destroy.aws_lambda_function_arn
   log_group_arn           = module.api_gateway_osaka_ap_destroy.log_group_arn
 }
