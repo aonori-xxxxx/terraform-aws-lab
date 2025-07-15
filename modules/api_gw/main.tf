@@ -2,7 +2,7 @@
 # API Gateway
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 resource "aws_apigatewayv2_api" "http_api" {
-  name          = "${var.name_prefix}-event-api-${var.ENV}-${var.MODE}"
+  name          = "${var.name_prefix}-event-api-${var.ENV}"
   protocol_type = "HTTP"
 }
 
@@ -50,5 +50,5 @@ resource "aws_lambda_permission" "apigw" {
 }
 
 resource "aws_cloudwatch_log_group" "api_gw_logs_ap" {
-  name              = "/aws/api-gw/${var.ENV}-${var.MODE}"
+  name              = "/aws/api-gw/${var.ENV}"
 }
