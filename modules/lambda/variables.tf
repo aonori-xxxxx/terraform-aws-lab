@@ -7,9 +7,6 @@ variable "name_prefix" {
 variable "ENV" {
   type = string
 }
-variable "MODE" {
-  type = string
-}
 variable "region" {
   type = string
 }
